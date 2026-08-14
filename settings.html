@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Horizon National Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text"><span class="brand-name">BANK</span><span class="brand-sub">OF AMERICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="profile.html" class="nav-item"><i class="fa-solid fa-user"></i> Profile</a>
+                <a href="security.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="settings.html" class="nav-item active"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="help.html" class="nav-item"><i class="fa-solid fa-circle-question"></i> Help</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle"><i class="fa-solid fa-moon"></i> <span>Dark
+                        Mode</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="font-size:1.1rem;font-weight:700;">Settings</h2>
+                <div class="header-actions">
+                    <button id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-body" style="max-width:680px;">
+
+                <!-- Preferences -->
+                <div class="card-panel">
+                    <h3 style="margin-bottom:1.25rem;">App Preferences</h3>
+
+                    <div class="security-recommendation">
+                        <div>
+                            <strong>Dark Mode</strong>
+                            <p style="font-size:0.82rem;color:var(--text-muted);">Switch between light and dark
+                                interface.</p>
+                        </div>
+                        <label class="toggle-switch" style="margin-left:auto;">
+                            <input type="checkbox" id="dark-mode-setting">
+                            <div class="switch-track"></div>
+                        </label>
+                    </div>
+
+                    <div class="security-recommendation">
+                        <div>
+                            <strong>Email Notifications</strong>
+                            <p style="font-size:0.82rem;color:var(--text-muted);">Receive alerts for logins, transfers,
+                                and payments.</p>
+                        </div>
+                        <label class="toggle-switch" style="margin-left:auto;">
+                            <input type="checkbox" id="email-notif-setting" checked>
+                            <div class="switch-track"></div>
+                        </label>
+                    </div>
+
+                    <div class="security-recommendation">
+                        <div>
+                            <strong>Transaction Alerts</strong>
+                            <p style="font-size:0.82rem;color:var(--text-muted);">Get notified for every debit over $50.
+                            </p>
+                        </div>
+                        <label class="toggle-switch" style="margin-left:auto;">
+                            <input type="checkbox" id="tx-alert-setting" checked>
+                            <div class="switch-track"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="card-panel" style="border:1px solid rgba(239,68,68,0.3);">
+                    <h3 style="margin-bottom:1rem;color:var(--danger);"><i class="fa-solid fa-triangle-exclamation"
+                            style="margin-right:8px;"></i>Demo Data Management</h3>
+                    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.25rem;">These actions affect
+                        your demo localStorage data. They cannot be undone.</p>
+                    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+                        <button class="btn btn-secondary" onclick="resetDemoData()"><i
+                                class="fa-solid fa-rotate-left"></i> Reset Demo Data</button>
+                        <button class="btn btn-danger" onclick="clearAllData()"><i class="fa-solid fa-trash"></i> Clear
+                            All Data & Log Out</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            SecurityEngine.verifySession();
+            const currentTheme = localStorage.getItem("theme") || "light";
+            document.getElementById("dark-mode-setting").checked = currentTheme === "dark";
+            document.getElementById("dark-mode-setting").addEventListener("change", function () {
+                const theme = this.checked ? "dark" : "light";
+                document.documentElement.setAttribute("data-theme", theme);
+                localStorage.setItem("theme", theme);
+                const toggleBtn = document.getElementById("theme-toggle-btn");
+                if (toggleBtn) toggleBtn.innerHTML = theme === "dark"
+                    ? `<i class="fa-solid fa-sun"></i> <span>Light Mode</span>`
+                    : `<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>`;
+            });
+        });
+
+        function resetDemoData() {
+            if (!confirm("Reset all demo data to defaults? This will delete your customizations and restore the John Carter demo account.")) return;
+            Object.values(DB_KEYS).forEach(k => localStorage.removeItem(k));
+            localStorage.removeItem("hnb_login_attempts");
+            Utils.showToast("Demo data reset. Reloading...", "info");
+            setTimeout(() => location.reload(), 1200);
+        }
+
+        function clearAllData() {
+            if (!confirm("This will delete ALL data and sign you out. Continue?")) return;
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+
+</html>

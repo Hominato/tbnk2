@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Money | BOA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text"><span class="brand-name">BANK</span><span class="brand-sub">OF AMERIICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="accounts.html" class="nav-item"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="transfer.html" class="nav-item active"><i class="fa-solid fa-paper-plane"></i> Transfers</a>
+                <a href="transactions.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                <a href="bill-pay.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Bill Pay</a>
+                <a href="cards.html" class="nav-item"><i class="fa-solid fa-credit-card"></i> Cards</a>
+                <a href="security.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                <a href="settings.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle"><i class="fa-solid fa-moon"></i> <span>Dark
+                        Mode</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="font-size:1.1rem;font-weight:700;">Transfer Money</h2>
+                <div class="header-actions">
+                    <button id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-body" style="max-width:680px;">
+
+                <!-- Step Indicators -->
+                <div class="step-indicators">
+                    <div class="step-dot active" id="sdot-1"><span>1</span><small>Details</small></div>
+                    <div class="step-line" id="sline-1"></div>
+                    <div class="step-dot" id="sdot-2"><span>2</span><small>Review</small></div>
+                    <div class="step-line" id="sline-2"></div>
+                    <div class="step-dot" id="sdot-3"><span>3</span><small>Done</small></div>
+                </div>
+
+                <!-- Step 1: Transfer Details -->
+                <div class="card-panel step-panel active" id="transfer-step-1">
+                    <h3 style="margin-bottom:1.5rem;"><i class="fa-solid fa-paper-plane"
+                            style="color:var(--primary-blue);margin-right:8px;"></i>Transfer Details</h3>
+                    <form id="transfer-form">
+                        <div class="form-group">
+                            <label for="from-account">From Account</label>
+                            <select id="from-account" class="form-control" required>
+                                <option value="">Select account...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="to-recipient">To Recipient / Payee</label>
+                            <select id="to-recipient" class="form-control" required>
+                                <option value="">Select recipient...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transfer-amount">Transfer Amount (USD)</label>
+                            <div style="position:relative;">
+                                <span
+                                    style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-weight:600;">$</span>
+                                <input type="number" id="transfer-amount" class="form-control"
+                                    style="padding-left:2rem;" min="0.01" step="0.01" placeholder="0.00" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="transfer-date">Transfer Date</label>
+                            <input type="date" id="transfer-date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transfer-memo">Memo (optional)</label>
+                            <input type="text" id="transfer-memo" class="form-control"
+                                placeholder="e.g. Rent, Gift, Invoice #123">
+                        </div>
+                        <button type="button" id="btn-review-transfer" class="btn btn-primary"
+                            style="width:100%;padding:0.9rem;">
+                            Continue to Review <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Review -->
+                <div class="card-panel step-panel" id="transfer-step-2">
+                    <h3 style="margin-bottom:1.5rem;"><i class="fa-solid fa-magnifying-glass"
+                            style="color:var(--primary-blue);margin-right:8px;"></i>Review Transfer</h3>
+                    <div class="review-row"><span class="review-label">From</span><span class="review-value"
+                            id="review-from">—</span></div>
+                    <div class="review-row"><span class="review-label">To</span><span class="review-value"
+                            id="review-to">—</span></div>
+                    <div class="review-row"><span class="review-label">Amount</span><span class="review-value"
+                            id="review-amount" style="color:var(--primary-blue);font-size:1.1rem;">—</span></div>
+                    <div class="review-row"><span class="review-label">Transfer Fee</span><span class="review-value"
+                            id="review-fee" style="color:var(--success);">—</span></div>
+                    <div class="review-row"><span class="review-label">Total Debited</span><span class="review-value"
+                            id="review-total" style="font-size:1.1rem;">—</span></div>
+                    <div class="review-row"><span class="review-label">Date</span><span class="review-value"
+                            id="review-date">—</span></div>
+                    <div class="review-row"><span class="review-label">Memo</span><span class="review-value"
+                            id="review-memo">—</span></div>
+
+                    <div style="display:flex;gap:1rem;margin-top:1.5rem;">
+                        <button id="btn-back-step1" class="btn btn-secondary" style="flex:1;"><i
+                                class="fa-solid fa-arrow-left"></i> Back</button>
+                        <button id="btn-confirm-transfer" class="btn btn-primary" style="flex:2;">
+                            <i class="fa-solid fa-lock"></i> Confirm & Send Transfer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="card-panel step-panel" id="transfer-step-3" style="text-align:center;">
+                    <div class="confirm-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h2 style="margin-bottom:0.5rem;">Transfer Submitted!</h2>
+                    <p style="color:var(--text-muted);margin-bottom:2rem;">Your transfer has been queued and will be
+                        processed within 1-2 business days.</p>
+                    <div
+                        style="background:var(--bg-main);border-radius:var(--radius-sm);padding:1.25rem;text-align:left;margin-bottom:1.5rem;">
+                        <div class="review-row"><span class="review-label">Confirmation #</span><span
+                                class="review-value" id="confirm-ref" style="font-family:monospace;">—</span></div>
+                        <div class="review-row"><span class="review-label">Date</span><span class="review-value"
+                                id="confirm-date">—</span></div>
+                        <div class="review-row"><span class="review-label">Amount</span><span class="review-value"
+                                id="confirm-amount">—</span></div>
+                    </div>
+                    <div style="display:flex;gap:1rem;justify-content:center;">
+                        <a href="dashboard.html" class="btn btn-primary"><i class="fa-solid fa-house"></i> Back to
+                            Dashboard</a>
+                        <a href="transactions.html" class="btn btn-secondary"><i class="fa-solid fa-list-check"></i>
+                            View Transactions</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/email.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/transfers.js"></script>
+    <script>
+        // Set today's date as default
+        document.addEventListener("DOMContentLoaded", () => {
+            const dateEl = document.getElementById("transfer-date");
+            if (dateEl) dateEl.value = new Date().toISOString().split("T")[0];
+        });
+    </script>
+</body>
+
+</html>

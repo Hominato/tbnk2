@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Pay | Horizon National Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text"><span class="brand-name">BANK</span><span class="brand-sub">OF AMERICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="accounts.html" class="nav-item"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="transfer.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Transfers</a>
+                <a href="transactions.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                <a href="bill-pay.html" class="nav-item active"><i class="fa-solid fa-file-invoice-dollar"></i> Bill
+                    Pay</a>
+                <a href="cards.html" class="nav-item"><i class="fa-solid fa-credit-card"></i> Cards</a>
+                <a href="security.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                <a href="settings.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle"><i class="fa-solid fa-moon"></i> <span>Dark
+                        Mode</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="font-size:1.1rem;font-weight:700;">Bill Pay</h2>
+                <div class="header-actions">
+                    <button id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-body">
+
+                <!-- Add Bill Form -->
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-plus" style="color:var(--primary-blue);"></i> Schedule New Bill</h3>
+                    </div>
+                    <form id="add-bill-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bill-name">Biller Name</label>
+                                <input type="text" id="bill-name" class="form-control"
+                                    placeholder="e.g. Pacific Power & Light" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bill-category">Category</label>
+                                <select id="bill-category" class="form-control">
+                                    <option>Utilities</option>
+                                    <option>Internet</option>
+                                    <option>Phone</option>
+                                    <option>Insurance</option>
+                                    <option>Rent / Mortgage</option>
+                                    <option>Subscription</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bill-amount">Amount ($)</label>
+                                <input type="number" id="bill-amount" class="form-control" min="0.01" step="0.01"
+                                    placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bill-due">Due Date</label>
+                                <input type="date" id="bill-due" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-calendar-plus"></i> Schedule
+                            Bill</button>
+                    </form>
+                </div>
+
+                <!-- Scheduled Bills Table -->
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h3>Scheduled & Payment History</h3>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Biller</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bills-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Pay Bill Modal -->
+    <div class="modal-overlay" id="pay-bill-modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3>Confirm Bill Payment</h3>
+                <button id="close-pay-modal" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="review-row">
+                    <span class="review-label">Biller</span>
+                    <span class="review-value" id="pay-bill-name">—</span>
+                </div>
+                <div class="review-row">
+                    <span class="review-label">Amount</span>
+                    <span class="review-value" id="pay-bill-amount"
+                        style="color:var(--primary-blue);font-size:1.1rem;">—</span>
+                </div>
+                <div class="form-group" style="margin-top:1rem;">
+                    <label for="pay-from-account">Pay From Account</label>
+                    <select id="pay-from-account" class="form-control"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="close-pay-modal-footer" class="btn btn-secondary"
+                    onclick="document.getElementById('pay-bill-modal').classList.remove('active')">Cancel</button>
+                <button id="confirm-pay-btn" class="btn btn-primary"><i class="fa-solid fa-check"></i> Confirm
+                    Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/bills.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOA | Secure Personal & Business Banking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .landing-header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .landing-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .landing-nav a {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #003B75 100%);
+            color: white;
+            padding: 5rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .features-section {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: var(--primary-navy);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 4rem 5% 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-bottom {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Landing Header -->
+    <header class="landing-header">
+        <div class="brand-header" style="padding:0; border:none;">
+            <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                style="height: 36px; width: auto; object-fit: contain;">
+            <div class="brand-text">
+                <span class="brand-name" style="color:var(--primary-navy);">HORIZON</span>
+                <span class="brand-sub" style="color:var(--text-muted);">NATIONAL BANK</span>
+            </div>
+        </div>
+        <nav class="landing-nav">
+            <a href="#personal">Personal Banking</a>
+            <a href="#business">Business</a>
+            <a href="#wealth">Wealth Management</a>
+            <a href="#security">Security</a>
+            <a href="login.html" class="btn btn-secondary">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Open an Account</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Banking designed around your life.</h1>
+            <p>Experience seamless everyday money management, instant digital transfers, and intelligent security
+                safeguards built to protect your wealth.</p>
+            <div class="hero-buttons">
+                <a href="register.html" class="btn btn-primary" style="background:var(--accent-teal); color:#000;">Get
+                    Started Online</a>
+                <a href="login.html" class="btn btn-secondary" style="color:white; border-color:white;">Sign In to
+                    Account</a>
+            </div>
+        </div>
+        <div class="hero-card">
+            <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-shield-halved" style="color:var(--accent-teal);"></i>
+                Next-Gen Online Banking</h3>
+            <p style="margin-bottom:1.5rem; color:rgba(255,255,255,0.8);">Access high-yield savings, low-interest credit
+                lines, and real-time fraud prevention in one intuitive platform.</p>
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem;">
+                <li><i class="fa-solid fa-check" style="color:var(--accent-teal);"></i> $0 Monthly account maintenance
+                    fees</li>
+                <li><i class="fa-solid fa-check" style="color:var(--accent-teal);"></i> Instant P2P money transfers</li>
+                <li><i class="fa-solid fa-check" style="color:var(--accent-teal);"></i> 24/7 Virtual card freeze control
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-section">
+        <h2>Financial Tools Built for Growth</h2>
+        <p style="color:var(--text-muted);">Everything you need to move, save, and manage money confidently.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-wallet"></i>
+                <h3>Smart Checking</h3>
+                <p>No overdraft fees, early direct deposit delivery, and automatic bill payment scheduling.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-piggy-bank"></i>
+                <h3>High-Yield Savings</h3>
+                <p>Earn competitive interest rates with zero lock-up periods and automatic rounding rules.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-credit-card"></i>
+                <h3>Virtual Bank Cards</h3>
+                <p>Generate digital credit/debit cards instantly with customizable spending limits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div>
+            <div class="brand-header" style="padding:0; border:none; margin-bottom:1rem;">
+                <i class="fa-solid fa-building-columns brand-icon"></i>
+                <div class="brand-text">
+                    <span class="brand-name">BANK</span>
+                    <span class="brand-sub">OF AMERICA</span>
+                </div>
+            </div>
+            <p>Providing secure retail and business banking solutions nationwide. Member FDIC. Equal Housing Lender.</p>
+        </div>
+        <div>
+            <h4 style="color:white; margin-bottom:1rem;">Products</h4>
+            <p><a href="#" style="color:inherit;">Checking Accounts</a></p>
+            <p><a href="#" style="color:inherit;">Savings Accounts</a></p>
+            <p><a href="#" style="color:inherit;">Credit Cards</a></p>
+        </div>
+        <div>
+            <h4 style="color:white; margin-bottom:1rem;">Security</h4>
+            <p><a href="#" style="color:inherit;">Privacy Notice</a></p>
+            <p><a href="#" style="color:inherit;">Fraud Center</a></p>
+            <p><a href="#" style="color:inherit;">Report Scam</a></p>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BOA, N.A. Fictional demonstration system for development testing only.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

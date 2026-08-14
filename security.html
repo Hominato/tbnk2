@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Center | BOA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text"><span class="brand-name">BANK</span><span class="brand-sub">OF AMERICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="accounts.html" class="nav-item"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="transfer.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Transfers</a>
+                <a href="transactions.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                <a href="security.html" class="nav-item active"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                <a href="profile.html" class="nav-item"><i class="fa-solid fa-user"></i> Profile</a>
+                <a href="settings.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="help.html" class="nav-item"><i class="fa-solid fa-circle-question"></i> Help</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle"><i class="fa-solid fa-moon"></i> <span>Dark
+                        Mode</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="font-size:1.1rem;font-weight:700;">Security Center</h2>
+                <div class="header-actions">
+                    <button id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-body">
+
+                <div class="dashboard-split-grid" style="grid-template-columns:1fr 2fr;">
+
+                    <!-- Security Score Widget -->
+                    <div class="card-panel"
+                        style="align-items:center;display:flex;flex-direction:column;gap:1rem;text-align:center;">
+                        <h3>Security Score</h3>
+                        <div class="security-score-ring">
+                            <div class="security-score-inner">
+                                <div class="score-num" id="sec-score">92</div>
+                                <div class="score-lbl">/ 100</div>
+                            </div>
+                        </div>
+                        <span class="badge badge-success" style="font-size:0.9rem;padding:0.4rem 1rem;">Excellent</span>
+                        <p style="font-size:0.82rem;color:var(--text-muted);">Your account has strong security settings
+                            enabled.</p>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="card-panel">
+                        <h3 style="margin-bottom:1rem;">Security Recommendations</h3>
+
+                        <div class="security-recommendation">
+                            <div class="security-rec-icon pass"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <strong>Strong Password Set</strong>
+                                <p style="font-size:0.82rem;color:var(--text-muted);">Your password meets complexity
+                                    requirements.</p>
+                            </div>
+                        </div>
+
+                        <div class="security-recommendation">
+                            <div class="security-rec-icon pass"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <strong>Two-Factor Authentication Enabled</strong>
+                                <p style="font-size:0.82rem;color:var(--text-muted);">2FA is active — your account is
+                                    protected against unauthorized access.</p>
+                            </div>
+                        </div>
+
+                        <div class="security-recommendation">
+                            <div class="security-rec-icon warn"><i class="fa-solid fa-exclamation"></i></div>
+                            <div>
+                                <strong>Recent Login From New Location</strong>
+                                <p style="font-size:0.82rem;color:var(--text-muted);">Login detected from Chrome /
+                                    macOS. Not you? <a href="#" style="color:var(--danger);">Report this.</a></p>
+                            </div>
+                        </div>
+
+                        <div class="security-recommendation">
+                            <div class="security-rec-icon pass"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <strong>Transaction Alerts Active</strong>
+                                <p style="font-size:0.82rem;color:var(--text-muted);">You receive notifications for all
+                                    account activity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Change Password -->
+                <div class="card-panel">
+                    <h3 style="margin-bottom:1.25rem;"><i class="fa-solid fa-key"
+                            style="color:var(--primary-blue);margin-right:8px;"></i>Change Password</h3>
+                    <form id="change-password-form" style="max-width:480px;">
+                        <div class="form-group">
+                            <label for="cur-password">Current Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="cur-password" class="form-control"
+                                    placeholder="Enter current password" required>
+                                <button type="button" class="toggle-password-btn"
+                                    onclick="SecurityEngine.togglePasswordVisibility(document.getElementById('cur-password'),this.querySelector('i'))"><i
+                                        class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="new-password" class="form-control"
+                                    placeholder="At least 8 characters" required>
+                                <button type="button" class="toggle-password-btn"
+                                    onclick="SecurityEngine.togglePasswordVisibility(document.getElementById('new-password'),this.querySelector('i'))"><i
+                                        class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirm-new-password" class="form-control"
+                                placeholder="Re-enter new password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-lock"></i> Update
+                            Password</button>
+                    </form>
+                </div>
+
+                <!-- 2FA Toggle -->
+                <div class="card-panel">
+                    <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-mobile-screen"
+                            style="color:var(--primary-blue);margin-right:8px;"></i>Two-Factor Authentication</h3>
+                    <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;">Two-factor authentication
+                        adds an extra layer of security by requiring a verification code each time you sign in.</p>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="2fa-toggle" checked onchange="toggle2FA(this)">
+                        <div class="switch-track"></div>
+                        <span id="2fa-label" style="font-weight:600;">2FA Enabled</span>
+                    </label>
+                </div>
+
+                <!-- Demo Disclaimer -->
+                <div class="security-disclaimer">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>
+                        <strong>Security Disclaimer:</strong> This is a frontend-only demonstration. LocalStorage is not
+                        secure for real banking data.
+                        Passwords here are stored as plain text for demonstration only. Real banking applications
+                        require
+                        secure server-side authentication, hashed passwords (bcrypt/Argon2), JWT tokens, MFA, and
+                        PCI-DSS compliant infrastructure.
+                    </span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = SecurityEngine.verifySession();
+            if (!user) return;
+
+            document.getElementById("sec-score").textContent = user.securityScore || 92;
+            document.getElementById("2fa-toggle").checked = !!user.twoFactorEnabled;
+            document.getElementById("2fa-label").textContent = user.twoFactorEnabled ? "2FA Enabled" : "2FA Disabled";
+
+            document.getElementById("change-password-form").addEventListener("submit", (e) => {
+                e.preventDefault();
+                const cur = document.getElementById("cur-password").value;
+                const newPw = document.getElementById("new-password").value;
+                const confirm = document.getElementById("confirm-new-password").value;
+
+                if (cur !== user.passwordHash) { Utils.showToast("Current password is incorrect.", "danger"); return; }
+                if (newPw !== confirm) { Utils.showToast("New passwords do not match.", "danger"); return; }
+                if (newPw.length < 8) { Utils.showToast("Password must be at least 8 characters.", "warning"); return; }
+
+                StorageEngine.updateItem(DB_KEYS.USERS, user.id, { passwordHash: newPw });
+                const session = { ...user, passwordHash: newPw };
+                sessionStorage.setItem(DB_KEYS.SESSION, JSON.stringify(session));
+                StorageEngine.addItem(DB_KEYS.NOTIFICATIONS, {
+                    id: Utils.generateId("NOTIF"),
+                    title: "Password Changed",
+                    message: "Your account password was successfully updated.",
+                    timestamp: new Date().toISOString(),
+                    read: false,
+                    type: "security"
+                });
+                Utils.showToast("Password updated successfully.", "success");
+                e.target.reset();
+            });
+        });
+
+        function toggle2FA(checkbox) {
+            const user = SecurityEngine.verifySession();
+            if (!user) return;
+            StorageEngine.updateItem(DB_KEYS.USERS, user.id, { twoFactorEnabled: checkbox.checked });
+            sessionStorage.setItem(DB_KEYS.SESSION, JSON.stringify({ ...user, twoFactorEnabled: checkbox.checked }));
+            document.getElementById("2fa-label").textContent = checkbox.checked ? "2FA Enabled" : "2FA Disabled";
+            Utils.showToast(`Two-factor authentication ${checkbox.checked ? 'enabled' : 'disabled'}.`, checkbox.checked ? "success" : "warning");
+        }
+    </script>
+</body>
+
+</html>

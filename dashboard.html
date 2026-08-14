@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Horizon National Bank</title>
+    <meta name="description"
+        content="Your Horizon National Bank online banking dashboard — balances, transfers, transactions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text">
+                    <span class="brand-name">BANK</span>
+                    <span class="brand-sub">OF AMERICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="accounts.html" class="nav-item"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="transfer.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Transfers</a>
+                <a href="transactions.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                <a href="bill-pay.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Bill Pay</a>
+                <a href="cards.html" class="nav-item"><i class="fa-solid fa-credit-card"></i> Cards</a>
+                <a href="deposit.html" class="nav-item"><i class="fa-solid fa-camera"></i> Mobile Deposit</a>
+                <a href="beneficiaries.html" class="nav-item"><i class="fa-solid fa-users"></i> Payees</a>
+                <div class="nav-divider"></div>
+                <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="profile.html" class="nav-item"><i class="fa-solid fa-user"></i> Profile</a>
+                <a href="security.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                <a href="settings.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="help.html" class="nav-item"><i class="fa-solid fa-circle-question"></i> Help</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle">
+                    <i class="fa-solid fa-moon"></i> <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="global-search" placeholder="Search transactions, accounts...">
+                </div>
+                <div class="header-actions">
+                    <a href="notifications.html" class="action-btn" title="Notifications">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-badge" id="notif-count"></span>
+                    </a>
+                    <div class="user-profile-menu">
+                        <img id="user-avatar"
+                            src="https://ui-avatars.com/api/?name=John+Carter&background=0061C1&color=fff&size=80"
+                            alt="User Avatar" class="avatar">
+                        <div class="user-info">
+                            <span class="user-name" id="session-user-name">John Carter</span>
+                            <span class="user-role">Personal Banking</span>
+                        </div>
+                        <button id="logout-btn" class="logout-link" title="Sign Out"><i
+                                class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-body">
+
+                <!-- Welcome Hero -->
+                <div class="welcome-card">
+                    <div class="welcome-text">
+                        <h2>Welcome back, <span id="dash-greeting-name">John</span>! 👋</h2>
+                        <p style="color:rgba(255,255,255,0.8);margin-top:4px;">Here is your financial summary as of
+                            today.</p>
+                    </div>
+                    <div class="portfolio-balances">
+                        <div class="balance-block">
+                            <span class="lbl">Total Balance</span>
+                            <span class="val" id="dash-total-balance">$84,520.65</span>
+                        </div>
+                        <div class="balance-block">
+                            <span class="lbl">Available</span>
+                            <span class="val accent" id="dash-avail-balance">$84,020.65</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="section-title">Quick Actions</div>
+                <div class="quick-actions-grid">
+                    <a href="transfer.html" class="quick-action-card">
+                        <div class="icon-circle bg-blue"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                        <span>Transfer Money</span>
+                    </a>
+                    <a href="deposit.html" class="quick-action-card">
+                        <div class="icon-circle bg-teal"><i class="fa-solid fa-camera"></i></div>
+                        <span>Deposit Check</span>
+                    </a>
+                    <a href="bill-pay.html" class="quick-action-card">
+                        <div class="icon-circle bg-gold"><i class="fa-solid fa-receipt"></i></div>
+                        <span>Pay Bills</span>
+                    </a>
+                    <a href="beneficiaries.html" class="quick-action-card">
+                        <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus"></i></div>
+                        <span>Add Payee</span>
+                    </a>
+                    <a href="transactions.html" class="quick-action-card">
+                        <div class="icon-circle" style="background:#8B5CF6;"><i class="fa-solid fa-list-ul"></i></div>
+                        <span>Transactions</span>
+                    </a>
+                    <a href="cards.html" class="quick-action-card">
+                        <div class="icon-circle" style="background:#EC4899;"><i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <span>My Cards</span>
+                    </a>
+                </div>
+
+                <!-- Accounts -->
+                <div class="section-title">Your Accounts</div>
+                <div class="accounts-grid" id="dashboard-accounts-container"></div>
+
+                <!-- Recent Transactions + Cash Flow -->
+                <div class="dashboard-split-grid">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h3>Recent Activity</h3>
+                            <a href="transactions.html" class="link-btn">View All <i
+                                    class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Account</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dash-transactions-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h3>Monthly Cash Flow</h3>
+                        </div>
+                        <div class="cash-flow-summary">
+                            <div class="cf-row">
+                                <span>Income (Credits)</span>
+                                <span class="cf-val" style="color:var(--success);" id="cf-income">—</span>
+                            </div>
+                            <div class="cf-progress-bar">
+                                <div class="fill success" id="cf-income-bar" style="width:75%;"></div>
+                            </div>
+                            <div class="cf-row">
+                                <span>Expenses (Debits)</span>
+                                <span class="cf-val" style="color:var(--danger);" id="cf-expense">—</span>
+                            </div>
+                            <div class="cf-progress-bar">
+                                <div class="fill danger" id="cf-expense-bar" style="width:35%;"></div>
+                            </div>
+                            <div class="cf-row"
+                                style="margin-top:0.5rem;padding-top:0.75rem;border-top:1px solid var(--border-color);">
+                                <span style="font-weight:600;">Net Cash Flow</span>
+                                <span class="cf-val" id="cf-net">—</span>
+                            </div>
+                        </div>
+
+                        <div class="security-mini-banner">
+                            <i class="fa-solid fa-shield-check banner-icon"></i>
+                            <div>
+                                <strong>24/7 Fraud Protection Active</strong>
+                                <p style="font-size:0.78rem;margin-top:2px;color:var(--text-muted);">Your accounts are
+                                    monitored continuously for unauthorized activity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end dashboard-body -->
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-bottom-bar">
+        <a href="dashboard.html" class="mobile-nav-btn active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="accounts.html" class="mobile-nav-btn"><i class="fa-solid fa-wallet"></i> Accounts</a>
+        <a href="transfer.html" class="mobile-nav-btn"><i class="fa-solid fa-paper-plane"></i> Transfer</a>
+        <a href="transactions.html" class="mobile-nav-btn"><i class="fa-solid fa-list-check"></i> Activity</a>
+        <a href="profile.html" class="mobile-nav-btn"><i class="fa-solid fa-user"></i> Profile</a>
+    </nav>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/email.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = SecurityEngine.verifySession();
+            if (!user) return;
+
+            document.getElementById("dash-greeting-name").textContent = user.firstName;
+            document.getElementById("session-user-name").textContent = `${user.firstName} ${user.lastName}`;
+            document.getElementById("user-avatar").src = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=0061C1&color=fff&size=80`;
+
+            // Notification badge
+            const unread = StorageEngine.get(DB_KEYS.NOTIFICATIONS).filter(n => !n.read).length;
+            const badge = document.getElementById("notif-count");
+            if (badge) badge.textContent = unread > 0 ? unread : "";
+
+            // Render Accounts
+            const accounts = StorageEngine.get(DB_KEYS.ACCOUNTS);
+            const accContainer = document.getElementById("dashboard-accounts-container");
+            let totalBal = 0, availBal = 0;
+
+            accounts.forEach(acc => {
+                totalBal += acc.type === "Credit Card" ? 0 : acc.balance;
+                availBal += acc.type === "Credit Card" ? 0 : acc.availableBalance;
+
+                const accCard = document.createElement("div");
+                accCard.className = "account-card";
+                const icon = acc.type === "Savings" ? "fa-piggy-bank" : acc.type === "Credit Card" ? "fa-credit-card" : "fa-landmark";
+                accCard.innerHTML = `
+            <div class="acc-header">
+                <span class="acc-type"><i class="fa-solid ${icon}" style="color:var(--primary-blue);margin-right:6px;"></i>${acc.type}</span>
+                <span class="acc-num" style="font-family:monospace;font-size:0.8rem;color:var(--text-muted);">${Utils.maskAccount(acc.accountNumber)}</span>
+            </div>
+            <div class="acc-balance">${acc.type === "Credit Card" ? Utils.formatCurrency(acc.availableBalance) + '<small style="font-size:0.7rem;color:var(--text-muted);margin-left:4px;">available</small>' : Utils.formatCurrency(acc.balance)}</div>
+            <div class="acc-footer">
+                <span style="font-size:0.82rem;color:var(--text-muted);">Available: ${Utils.formatCurrency(acc.availableBalance)}</span>
+                <a href="account-details.html?id=${acc.id}" class="acc-link"><i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        `;
+                accContainer.appendChild(accCard);
+            });
+
+            document.getElementById("dash-total-balance").textContent = Utils.formatCurrency(totalBal);
+            document.getElementById("dash-avail-balance").textContent = Utils.formatCurrency(availBal);
+
+            // Render Transactions
+            const txs = StorageEngine.get(DB_KEYS.TRANSACTIONS).slice(0, 6);
+            const txBody = document.getElementById("dash-transactions-body");
+            txs.forEach(tx => {
+                const isCredit = tx.type === "Credit";
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td data-label="Date">${Utils.formatDate(tx.date)}</td>
+            <td data-label="Description"><strong>${tx.description}</strong><br><small class="text-muted">${tx.category}</small></td>
+            <td data-label="Account">${tx.account}</td>
+            <td data-label="Amount" class="${isCredit ? 'text-success' : ''}">${isCredit ? '+' : '-'}${Utils.formatCurrency(tx.amount)}</td>
+            <td data-label="Status"><span class="badge badge-success">${tx.status}</span></td>
+        `;
+                txBody.appendChild(tr);
+            });
+
+            // Cash Flow Calculation (current month)
+            const thisMonth = new Date().getMonth();
+            const thisYear = new Date().getFullYear();
+            const monthTxs = StorageEngine.get(DB_KEYS.TRANSACTIONS).filter(t => {
+                const d = new Date(t.date);
+                return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+            });
+            const income = monthTxs.filter(t => t.type === "Credit").reduce((s, t) => s + t.amount, 0);
+            const expense = monthTxs.filter(t => t.type === "Debit").reduce((s, t) => s + t.amount, 0);
+            const net = income - expense;
+
+            document.getElementById("cf-income").textContent = `+${Utils.formatCurrency(income)}`;
+            document.getElementById("cf-expense").textContent = `-${Utils.formatCurrency(expense)}`;
+            const netEl = document.getElementById("cf-net");
+            netEl.textContent = `${net >= 0 ? '+' : ''}${Utils.formatCurrency(net)}`;
+            netEl.style.color = net >= 0 ? "var(--success)" : "var(--danger)";
+
+            const max = Math.max(income, expense, 1);
+            document.getElementById("cf-income-bar").style.width = `${(income / max) * 100}%`;
+            document.getElementById("cf-expense-bar").style.width = `${(expense / max) * 100}%`;
+        });
+    </script>
+</body>
+
+</html>

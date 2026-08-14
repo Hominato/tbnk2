@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Deposit | Horizon National Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text"><span class="brand-name">BANK</span><span class="brand-sub">OF AMERRICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="accounts.html" class="nav-item"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="transfer.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Transfers</a>
+                <a href="transactions.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                <a href="deposit.html" class="nav-item active"><i class="fa-solid fa-camera"></i> Mobile Deposit</a>
+                <a href="cards.html" class="nav-item"><i class="fa-solid fa-credit-card"></i> Cards</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle"><i class="fa-solid fa-moon"></i> <span>Dark
+                        Mode</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="font-size:1.1rem;font-weight:700;">Mobile Check Deposit</h2>
+                <div class="header-actions">
+                    <button id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-body" style="max-width:680px;">
+
+                <!-- Success State (hidden by default) -->
+                <div id="deposit-success" style="display:none;" class="card-panel" style="text-align:center;">
+                    <div class="confirm-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h2 style="margin-bottom:0.5rem;">Deposit Submitted!</h2>
+                    <p style="color:var(--text-muted);margin-bottom:2rem;">Your check is being processed. Funds
+                        typically appear within 1-2 business days.</p>
+                    <div
+                        style="background:var(--bg-main);border-radius:var(--radius-sm);padding:1.25rem;text-align:left;margin-bottom:1.5rem;">
+                        <div class="review-row"><span class="review-label">Status</span><span class="review-value"><span
+                                    class="badge badge-warning">Processing</span></span></div>
+                        <div class="review-row"><span class="review-label">Confirmation #</span><span
+                                class="review-value" id="deposit-ref" style="font-family:monospace;">—</span></div>
+                        <div class="review-row"><span class="review-label">Amount</span><span class="review-value"
+                                id="deposit-confirm-amount">—</span></div>
+                        <div class="review-row"><span class="review-label">Account</span><span class="review-value"
+                                id="deposit-confirm-account">—</span></div>
+                    </div>
+                    <div style="display:flex;gap:1rem;justify-content:center;">
+                        <a href="dashboard.html" class="btn btn-primary"><i class="fa-solid fa-house"></i> Back to
+                            Dashboard</a>
+                        <button onclick="resetDepositForm()" class="btn btn-secondary"><i class="fa-solid fa-plus"></i>
+                            New Deposit</button>
+                    </div>
+                </div>
+
+                <!-- Deposit Form -->
+                <div id="deposit-form-wrapper">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-camera"
+                                    style="color:var(--primary-blue);margin-right:8px;"></i>Deposit a Check</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dep-account">Deposit To Account</label>
+                            <select id="dep-account" class="form-control" required>
+                                <option value="">Select account...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dep-amount">Check Amount ($)</label>
+                            <div style="position:relative;">
+                                <span
+                                    style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-weight:600;">$</span>
+                                <input type="number" id="dep-amount" class="form-control" style="padding-left:2rem;"
+                                    min="0.01" step="0.01" placeholder="0.00" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Front of Check</label>
+                            <div class="upload-zone" id="front-zone">
+                                <i class="fa-solid fa-camera"></i>
+                                <p><strong>Click or drag to upload</strong></p>
+                                <p style="font-size:0.8rem;">Front of check (JPG, PNG, PDF)</p>
+                                <input type="file" id="front-file" accept="image/*,application/pdf">
+                                <img id="front-preview" class="upload-preview" alt="Front preview">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Back of Check</label>
+                            <div class="upload-zone" id="back-zone">
+                                <i class="fa-solid fa-rotate-right"></i>
+                                <p><strong>Click or drag to upload</strong></p>
+                                <p style="font-size:0.8rem;">Back of check (endorsement visible)</p>
+                                <input type="file" id="back-file" accept="image/*,application/pdf">
+                                <img id="back-preview" class="upload-preview" alt="Back preview">
+                            </div>
+                        </div>
+
+                        <button id="submit-deposit-btn" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">
+                            <i class="fa-solid fa-upload"></i> Submit Deposit
+                        </button>
+
+                        <div class="security-disclaimer" style="margin-top:1rem;">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>This is a demonstration deposit feature. No actual bank deposit occurs. Images are not
+                                transmitted anywhere. Funds shown are fictional.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            SecurityEngine.verifySession();
+
+            // Populate accounts
+            const depAccSelect = document.getElementById("dep-account");
+            StorageEngine.get(DB_KEYS.ACCOUNTS).filter(a => a.type !== "Credit Card").forEach(acc => {
+                const opt = document.createElement("option");
+                opt.value = acc.id;
+                opt.textContent = `${acc.type} (${Utils.maskAccount(acc.accountNumber)})`;
+                depAccSelect.appendChild(opt);
+            });
+
+            // File preview handlers
+            const setupPreview = (inputId, previewId) => {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
+                input.addEventListener("change", () => {
+                    const file = input.files[0];
+                    if (file && file.type.startsWith("image/")) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            preview.src = e.target.result;
+                            preview.style.display = "block";
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            };
+
+            setupPreview("front-file", "front-preview");
+            setupPreview("back-file", "back-preview");
+
+            // Submit deposit
+            document.getElementById("submit-deposit-btn").addEventListener("click", () => {
+                const accId = depAccSelect.value;
+                const amount = parseFloat(document.getElementById("dep-amount").value);
+                const frontFile = document.getElementById("front-file").files[0];
+                const backFile = document.getElementById("back-file").files[0];
+
+                if (!accId) { Utils.showToast("Please select a deposit account.", "warning"); return; }
+                if (isNaN(amount) || amount <= 0) { Utils.showToast("Enter a valid check amount.", "warning"); return; }
+                if (!frontFile) { Utils.showToast("Please upload the front of the check.", "warning"); return; }
+
+                const account = StorageEngine.getItemById(DB_KEYS.ACCOUNTS, accId);
+                const ref = Utils.generateId("DEP");
+
+                // Add pending transaction
+                StorageEngine.addItem(DB_KEYS.TRANSACTIONS, {
+                    id: Utils.generateId("TXN"),
+                    date: new Date().toISOString().split("T")[0],
+                    time: new Date().toTimeString().split(" ")[0].substring(0, 5),
+                    description: "Mobile Check Deposit",
+                    category: "Deposit",
+                    type: "Credit",
+                    account: account.type,
+                    amount,
+                    status: "Processing",
+                    reference: ref
+                });
+
+                // Notification
+                StorageEngine.addItem(DB_KEYS.NOTIFICATIONS, {
+                    id: Utils.generateId("NOTIF"),
+                    title: "Deposit Received",
+                    message: `Your check for ${Utils.formatCurrency(amount)} is being processed.`,
+                    timestamp: new Date().toISOString(),
+                    read: false,
+                    type: "transaction"
+                });
+
+                document.getElementById("deposit-ref").textContent = ref;
+                document.getElementById("deposit-confirm-amount").textContent = Utils.formatCurrency(amount);
+                document.getElementById("deposit-confirm-account").textContent = `${account.type} (${Utils.maskAccount(account.accountNumber)})`;
+
+                document.getElementById("deposit-form-wrapper").style.display = "none";
+                document.getElementById("deposit-success").style.display = "block";
+                Utils.showToast("Deposit submitted successfully!", "success");
+            });
+        });
+
+        function resetDepositForm() {
+            document.getElementById("deposit-form-wrapper").style.display = "block";
+            document.getElementById("deposit-success").style.display = "none";
+            document.getElementById("front-preview").style.display = "none";
+            document.getElementById("back-preview").style.display = "none";
+            document.getElementById("dep-amount").value = "";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payees | Horizon National Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-header">
+                <img src="logo.png" alt="Bank Logo" class="brand-logo"
+                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="brand-text"><span class="brand-name">BANK</span><span class="brand-sub">OF AMERICA</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="accounts.html" class="nav-item"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="transfer.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Transfers</a>
+                <a href="transactions.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                <a href="bill-pay.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Bill Pay</a>
+                <a href="beneficiaries.html" class="nav-item active"><i class="fa-solid fa-users"></i> Payees</a>
+                <a href="security.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                <a href="settings.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle-btn" class="theme-toggle"><i class="fa-solid fa-moon"></i> <span>Dark
+                        Mode</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button id="mobile-hamburger" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="font-size:1.1rem;font-weight:700;">Manage Payees</h2>
+                <div class="header-actions">
+                    <button id="btn-add-beneficiary" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Add
+                        Payee</button>
+                    <button id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-body">
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h3>Saved Payees & Recipients</h3>
+                        <button id="btn-add-beneficiary-2" class="btn btn-primary btn-sm"
+                            onclick="document.getElementById('add-beneficiary-modal').classList.add('active')">
+                            <i class="fa-solid fa-plus"></i> Add Payee
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Bank</th>
+                                    <th>Account</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="beneficiaries-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Beneficiary Modal -->
+    <div class="modal-overlay" id="add-beneficiary-modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3>Add New Payee</h3>
+                <button id="close-add-ben-modal" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-beneficiary-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ben-name">Full Name *</label>
+                            <input type="text" id="ben-name" class="form-control" placeholder="Jane Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ben-nickname">Nickname (optional)</label>
+                            <input type="text" id="ben-nickname" class="form-control" placeholder="Mom, Landlord...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ben-bank">Bank Name *</label>
+                        <input type="text" id="ben-bank" class="form-control" placeholder="Chase, Wells Fargo..."
+                            required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ben-account">Account Number *</label>
+                            <input type="text" id="ben-account" class="form-control" placeholder="Full account number"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ben-routing">Routing Number *</label>
+                            <input type="text" id="ben-routing" class="form-control" placeholder="9-digit ABA routing"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ben-type">Account Type</label>
+                        <select id="ben-type" class="form-control">
+                            <option>Checking</option>
+                            <option>Savings</option>
+                            <option>Corporate</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer" style="padding:1rem 0 0;border:none;">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="document.getElementById('add-beneficiary-modal').classList.remove('active')">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Add
+                            Payee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/beneficiaries.js"></script>
+</body>
+
+</html>
