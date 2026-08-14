@@ -26,7 +26,7 @@ const StorageEngine = (() => {
             phone: "+1 (555) 019-2834",
             dob: "1988-05-14",
             address: "742 Evergreen Terrace, Springfield, OR 97477",
-            passwordHash: "Godisgood2014", // Demo purpose plain text/simple hash
+            passwordHash: "Godisgood2014",
             registeredAt: "2014-01-15T08:30:00Z",
             twoFactorEnabled: true,
             securityScore: 92
@@ -37,8 +37,8 @@ const StorageEngine = (() => {
                 type: "Checking",
                 accountNumber: "109283745625",
                 routingNumber: "021000021",
-                balance: 1395000000.45,
-                availableBalance: 1395000000.45,
+                balance: 139500450.45, // Updated to reflect the $139.5M deposit
+                availableBalance: 139500450.45,
                 status: "Active",
                 createdAt: "2014-01-15"
             },
@@ -58,7 +58,7 @@ const StorageEngine = (() => {
                 type: "Credit Card",
                 accountNumber: "4532890123453921",
                 routingNumber: "021000021",
-                balance: -2550.00, // Amount spent
+                balance: -2550.00,
                 creditLimit: 5000.00,
                 availableBalance: 2450.00,
                 status: "Active",
@@ -132,24 +132,16 @@ const StorageEngine = (() => {
         notifications: [
             {
                 id: "NOTIF-1",
-                title: "Security Alert",
-                message: "New successful login detected from Chrome (macOS).",
-                timestamp: new Date().toISOString(),
+                title: "Deposit Received",
+                message: "A deposit of $139,500,000.00 from Ndlovu Security Company was credited to your Checking account.",
+                timestamp: "2026-08-13T10:00:00Z",
                 read: false,
-                type: "security"
-            },
-            {
-                id: "NOTIF-2",
-                title: "Dividend Received",
-                message: "Your Savings account received an interest payout of $106.88.",
-                timestamp: new Date(Date.now() - 86400000).toISOString(),
-                read: true,
                 type: "transaction"
             }
         ]
     };
 
-    // Generate 30 sample transactions dynamically
+    // Generate 30 sample transactions strictly ending on 08/13/2026
     const generateInitialTransactions = () => {
         const categories = [
             { desc: "Amazon.com Purchase", type: "Debit", cat: "Shopping", acc: "Checking", min: 12, max: 250 },
@@ -162,17 +154,32 @@ const StorageEngine = (() => {
         ];
 
         const txs = [];
-        const now = new Date();
+        const anchorDate = new Date("2026-08-13T10:00:00");
 
-        for (let i = 0; i < 30; i++) {
+        // 1. Add the specific deposit transaction first
+        txs.push({
+            id: "TXN-100000",
+            date: "2026-08-13",
+            time: "10:00",
+            description: "Deposit by Ndlovu Security Company",
+            category: "Income",
+            type: "Credit",
+            account: "Checking",
+            amount: 139500000.00,
+            status: "Completed",
+            reference: "REF-98431209"
+        });
+
+        // 2. Generate random transactions strictly BEFORE 08/13/2026
+        for (let i = 1; i <= 30; i++) {
             const template = categories[Math.floor(Math.random() * categories.length)];
-            const date = new Date(now.getTime() - i * 86400000 * (1 + Math.random()));
+            const pastDate = new Date(anchorDate.getTime() - (i * 86400000 * (0.5 + Math.random())));
             const amt = (Math.random() * (template.max - template.min) + template.min).toFixed(2);
 
             txs.push({
                 id: `TXN-${100000 + i}`,
-                date: date.toISOString().split("T")[0],
-                time: date.toTimeString().split(" ")[0].substring(0, 5),
+                date: pastDate.toISOString().split("T")[0],
+                time: pastDate.toTimeString().split(" ")[0].substring(0, 5),
                 description: template.desc,
                 category: template.cat,
                 type: template.type,
@@ -204,7 +211,6 @@ const StorageEngine = (() => {
         get: (key) => JSON.parse(localStorage.getItem(key)) || [],
         set: (key, data) => localStorage.setItem(key, JSON.stringify(data)),
 
-        // Entity helper queries
         getItemById: (key, id) => {
             const list = JSON.parse(localStorage.getItem(key)) || [];
             return list.find(item => item.id === id);
