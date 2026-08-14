@@ -17,7 +17,7 @@ const EMAIL_CONFIG = {
     publicKey: "9zVEGau5i1yKnXZND",
     serviceId: "service_trlvuws",
 
-    // One EmailJS template for both login and transfer
+    // Your single EmailJS template
     templateId: "Sage1909"
 };
 
@@ -25,17 +25,17 @@ const EMAIL_CONFIG = {
 const EmailNotifier = (() => {
 
     /*
-     * Check whether EmailJS is available
-     * and credentials have been configured.
+     * Check whether EmailJS is loaded
+     * and credentials are configured.
      */
     const isConfigured =
         typeof emailjs !== "undefined" &&
         EMAIL_CONFIG.publicKey &&
-        EMAIL_CONFIG.publicKey !== "9zVEGau5i1yKnXZND" &&
+        EMAIL_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY" &&
         EMAIL_CONFIG.serviceId &&
-        EMAIL_CONFIG.serviceId !== "service_trlvuws" &&
+        EMAIL_CONFIG.serviceId !== "YOUR_EMAILJS_SERVICE_ID" &&
         EMAIL_CONFIG.templateId &&
-        EMAIL_CONFIG.templateId !== "Sage1909";
+        EMAIL_CONFIG.templateId !== "YOUR_EMAILJS_TEMPLATE_ID";
 
 
     /*
@@ -65,48 +65,40 @@ const EmailNotifier = (() => {
     } else {
 
         console.warn(
-            "[EmailNotifier] EmailJS is not fully configured. " +
-            "Running in demo mode."
+            "[EmailNotifier] EmailJS is not fully configured."
         );
+
+        if (typeof emailjs === "undefined") {
+            console.warn(
+                "[EmailNotifier] EmailJS library is not loaded."
+            );
+        }
 
     }
 
 
     /*
-     * Main email sender
+     * MAIN SEND FUNCTION
+     *
+     * This is kept as sendAlert() so existing code
+     * such as auth.js does not break.
      */
-    const sendEmail = async (params = {}) => {
+    const sendAlert = async (templateKey, templateParams = {}) => {
 
         /*
-         * Make sure notification type exists
-         */
-        if (!params.notification_type) {
-
-            console.warn(
-                "[EmailNotifier] Missing notification_type."
-            );
-
-            return {
-                success: false,
-                status: 400,
-                text: "Notification type is required."
-            };
-
-        }
-
-
-        /*
-         * Only allow Login and Transfer notifications
+         * Only allow these two notification types.
          */
         const allowedTypes = [
+            "login",
+            "transfer",
             "Login",
             "Transfer"
         ];
 
-        if (!allowedTypes.includes(params.notification_type)) {
+        if (!allowedTypes.includes(templateKey)) {
 
             console.warn(
-                `[EmailNotifier] Unsupported notification type: ${params.notification_type}`
+                `[EmailNotifier] Unsupported notification type: ${templateKey}`
             );
 
             return {
@@ -119,15 +111,33 @@ const EmailNotifier = (() => {
 
 
         /*
-         * Validate template ID
+         * Normalize notification type
+         */
+        const notificationType =
+            templateKey.toLowerCase() === "login"
+                ? "Login"
+                : "Transfer";
+
+
+        /*
+         * Add notification type to EmailJS parameters.
+         */
+        const params = {
+            ...templateParams,
+            notification_type: notificationType
+        };
+
+
+        /*
+         * Validate EmailJS template
          */
         if (
             !EMAIL_CONFIG.templateId ||
-            EMAIL_CONFIG.templateId === "Sage1909"
+            EMAIL_CONFIG.templateId === "YOUR_EMAILJS_TEMPLATE_ID"
         ) {
 
             console.error(
-                "[EmailNotifier] EmailJS template ID has not been configured."
+                "[EmailNotifier] EmailJS template ID is missing."
             );
 
             return {
@@ -145,7 +155,7 @@ const EmailNotifier = (() => {
         if (!isConfigured) {
 
             console.log(
-                `[EmailNotifier DEMO] ${params.notification_type} email would be sent.`,
+                `[EmailNotifier DEMO] ${notificationType} email would be sent.`,
                 params
             );
 
@@ -172,7 +182,7 @@ const EmailNotifier = (() => {
 
 
             console.log(
-                `[EmailNotifier] ${params.notification_type} email sent successfully.`,
+                `[EmailNotifier] ${notificationType} email sent successfully.`,
                 response
             );
 
@@ -188,7 +198,7 @@ const EmailNotifier = (() => {
         } catch (error) {
 
             console.error(
-                `[EmailNotifier] Failed to send ${params.notification_type} email:`,
+                `[EmailNotifier] Failed to send ${notificationType} email:`,
                 error
             );
 
@@ -198,7 +208,7 @@ const EmailNotifier = (() => {
                 demo: false,
                 status: error?.status || 500,
                 text: error?.text || "Failed to send email.",
-                error: error
+                error
             };
 
         }
@@ -218,13 +228,12 @@ const EmailNotifier = (() => {
         location
     } = {}) => {
 
-        return sendEmail({
-
-            notification_type: "Login",
+        return sendAlert("login", {
 
             to_email: to_email || "",
 
-            customer_name: customer_name || "Customer",
+            customer_name:
+                customer_name || "Customer",
 
             login_date:
                 login_date ||
@@ -235,14 +244,14 @@ const EmailNotifier = (() => {
                 new Date().toLocaleTimeString(),
 
             device:
-                device ||
-                "Web Browser",
+                device || "Web Browser",
 
             location:
-                location ||
-                "Unknown",
+                location || "Unknown",
 
-            // Empty transfer fields
+            /*
+             * Transfer fields
+             */
             amount: "",
             recipient_name: "",
             account_last4: "",
@@ -271,15 +280,15 @@ const EmailNotifier = (() => {
         status
     } = {}) => {
 
-        return sendEmail({
-
-            notification_type: "Transfer",
+        return sendAlert("transfer", {
 
             to_email: to_email || "",
 
-            customer_name: customer_name || "Customer",
+            customer_name:
+                customer_name || "Customer",
 
-            amount: amount || "",
+            amount:
+                amount || "",
 
             recipient_name:
                 recipient_name || "",
@@ -301,7 +310,9 @@ const EmailNotifier = (() => {
             status:
                 status || "Completed",
 
-            // Empty login fields
+            /*
+             * Login fields
+             */
             login_date: "",
             login_time: "",
             device: "",
@@ -313,12 +324,15 @@ const EmailNotifier = (() => {
 
 
     /*
-     * Public API
+     * PUBLIC API
      */
     return {
 
-        sendLoginAlert,
+        // Backward-compatible function
+        sendAlert,
 
+        // Recommended functions
+        sendLoginAlert,
         sendTransferAlert
 
     };
