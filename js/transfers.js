@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             isInternal = recipientId === "INTERNAL";
             recipient = isInternal
-                ? { name: "My Savings Account", bankName: "BOA (Internal)", accountNumber: "INTERNAL" }
+                ? { name: "My Savings Account", bankName: "Horizon Bank (Internal)", accountNumber: "INTERNAL" }
                 : beneficiaries.find(b => b.id === recipientId);
 
             if (!recipient) {

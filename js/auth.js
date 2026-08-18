@@ -29,13 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("hnb_login_attempts", "0");
                 sessionStorage.setItem(DB_KEYS.SESSION, JSON.stringify(user));
 
-                // Dispatch Email Notification
-                EmailNotifier.sendAlert("loginAlert", {
-                    to_name: `${user.firstName} ${user.lastName}`,
-                    to_email: user.email,
-                    time: new Date().toLocaleString()
-                });
-
                 Utils.showToast("Login successful! Redirecting...", "success");
                 setTimeout(() => window.location.href = "dashboard.html", 1000);
             } else {

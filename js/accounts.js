@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <body>
                     <div class="header-row">
                         <div>
-                            <div class="bank-name">BOA</div>
+                            <div class="bank-name">HORIZON</div>
                             <div class="meta">Member FDIC</div>
                         </div>
                         <div style="text-align:right;">

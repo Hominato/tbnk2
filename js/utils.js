@@ -58,3 +58,31 @@ const Utils = {
         }, 4000);
     }
 };
+
+// Global Simulation Footer Auto-Injector
+document.addEventListener("DOMContentLoaded", () => {
+    // Exclude login page from auto-injecting demo notifications/footer
+    const path = window.location.pathname;
+    if (path.endsWith("login.html") || path.endsWith("/login")) return;
+
+    if (!document.querySelector(".simulation-footer") && !document.querySelector("footer.footer")) {
+        const simFooter = document.createElement("footer");
+        simFooter.className = "simulation-footer";
+        simFooter.innerHTML = `
+            <div class="simulation-footer-content">
+                <div class="simulation-badge">
+                    <i class="fa-solid fa-flask"></i> EDUCATIONAL SIMULATION DEMO ONLY
+                </div>
+                <p>This application is a synthetic online banking simulation created for educational and portfolio demonstration purposes. No real monetary transactions, live bank accounts, or real user credentials are used or processed.</p>
+                <small>&copy; 2026 Horizon National Bank Demo Environment. All rights reserved.</small>
+            </div>
+        `;
+
+        const mainContent = document.querySelector(".main-content");
+        if (mainContent) {
+            mainContent.appendChild(simFooter);
+        } else {
+            document.body.appendChild(simFooter);
+        }
+    }
+});
